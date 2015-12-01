@@ -1,10 +1,12 @@
 <html>
 <head><title>Hello</title></head>
 <body>
+  <!--
 Choose speech engine: 
 <input type="radio" name="speechEngine" value="html5"/>HTML5
 <input type="radio" name="speechEngine" value="google"/>Google
 <br>
+-->
 Enter list of words (one in each line) :
 <br>
 <textarea rows="40" cols="50" id="listOfWords">
@@ -13,7 +15,7 @@ text
 dust
 </textarea>
 <br>
-<button onclick="askWords()">Ask me the words</button>
+<button onclick="askWords()">Ask me these words</button>
 <br>
 Correct words :
 <textarea rows="4" cols="50" id="correct">
@@ -23,11 +25,14 @@ Wrong words :
 </textarea>
 </body>
 <script>
+window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello There"));
+
 var listOfWords = document.getElementById("listOfWords");
 var correct = document.getElementById("correct");
 var wrong = document.getElementById("wrong");
+
 function askWords() {
-  var speechEngine = document.querySelector('input[name=speechEngine]:checked').value;
+  //var speechEngine = document.querySelector('input[name=speechEngine]:checked').value;
   var allText = listOfWords.value.split("\n");
   listOfWords.value = "";
   correct.value = "";
@@ -35,24 +40,24 @@ function askWords() {
   for (var i in allText) {
     var expectedValue = allText[i];
     if (expectedValue.length > 0) {
-      var msg = new SpeechSynthesisUtterance(expectedValue);
-      var response = null;
-      while (response == null) {
-        if (speechEngine === "html5") {
-          window.speechSynthesis.speak(msg);
-        } else {
-          speak(expectedValue);
-        }
-        response = window.prompt("Type in spelling or cancel to repeat");
-      }
-      if (response === expectedValue) {
-        correct.value += expectedValue + "\n";
-      } else {
-        wrong.value += expectedValue + "\n";
-      }
-      listOfWords.value += expectedValue + "\n";
+      askWord(expectedValue);
     }
   }
+}
+
+function askWord(expectedValue) {
+  var msg = new SpeechSynthesisUtterance(expectedValue);
+  var response = null;
+  while (response == null) {
+    window.speechSynthesis.speak(msg);
+    response = window.prompt("Type in spelling or cancel to repeat");
+  }
+  if (response === expectedValue) {
+    correct.value += expectedValue + "\n";
+  } else {
+    wrong.value += expectedValue + "\n";
+  }
+  listOfWords.value += expectedValue + "\n";
 }
 
 function speak(expectedValue) {
