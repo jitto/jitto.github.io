@@ -30,7 +30,7 @@ function askWords() {
   listOfWords.value = "";
   correct.value = "";
   wrong.value = "";
-  for (allText.length > 0) {
+  while (allText.length > 0) {
     var index = Math.floor((Math.random() * allText.length) + 1);
     var expectedValue = allText[index];
     allText = allText.splice(index, 1);
