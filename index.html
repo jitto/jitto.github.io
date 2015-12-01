@@ -34,7 +34,7 @@ function askWords() {
       var response = null;
       while (response == null) {
         window.speechSynthesis.speak(msg);
-        response = window.prompt("Type in spelling");
+        response = window.prompt("Type in spelling or cancel to repeat");
       }
       if (response === expectedValue) {
         correct.value += expectedValue + "\n";
