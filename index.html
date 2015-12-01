@@ -1,12 +1,25 @@
 <html>
 <head><title>Hello</title></head>
 <body>
-<div id="list">
-<textarea rows="4" cols="50">
+Enter list of words (one in each line) :
+<textarea rows="4" cols="50" id="listOfWords">
 test
 text
 dust
 </textarea>
-</div>
+<br>
+<button text=""
+Correct words :
+<textarea rows="4" cols="50" id="correct">
+</textarea>
+Wrong words :
+<textarea rows="4" cols="50" id="wrong">
+</textarea>
 </body>
+<script>
+  var listOfWords = document.getElementById("listOfWords");
+  var allText = listOfWords.value();
+  listOfWords.value = "";
+  alert(allText);
+</script>
 </html>
