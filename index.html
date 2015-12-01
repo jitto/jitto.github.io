@@ -81,6 +81,7 @@ function askWords() {
 
 function askWord(expectedValue) {
   var msg = new SpeechSynthesisUtterance(expectedValue);
+  msg.lang = 'en-US';
   var response = "";
   while (response === "") {
     window.speechSynthesis.speak(msg);
