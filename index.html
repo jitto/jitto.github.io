@@ -70,7 +70,10 @@ function askWords() {
     var expectedValue = allText[index];
     allText.splice(index, 1);
     if (expectedValue.length > 0) {
-      askWord(expectedValue);
+      var answer = askWord(expectedValue);
+      if (answer == null) {
+        break;
+      }
     }
   }
   listOfWords.style.backgroundColor = "white";
@@ -78,12 +81,14 @@ function askWords() {
 
 function askWord(expectedValue) {
   var msg = new SpeechSynthesisUtterance(expectedValue);
-  var response = null;
-  while (response == null) {
+  var response = "";
+  while (response === "") {
     window.speechSynthesis.speak(msg);
-    response = window.prompt("Type in spelling or cancel to repeat");
+    response = window.prompt("Type in spelling or press OK to repeat");
   }
-  if (response === expectedValue) {
+  if (response == null) {
+    return null;
+  } else if (response === expectedValue) {
     correct.value += expectedValue + "\n";
   } else {
     wrong.value += expectedValue + "\n";
