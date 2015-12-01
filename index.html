@@ -31,7 +31,7 @@ function askWords() {
   correct.value = "";
   wrong.value = "";
   while (allText.length > 0) {
-    var index = Math.floor((Math.random() * allText.length) + 1);
+    var index = Math.floor((Math.random() * allText.length));
     var expectedValue = allText[index];
     allText.splice(index, 1);
     if (expectedValue.length > 0) {
