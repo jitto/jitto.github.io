@@ -10,6 +10,7 @@ dust
 </textarea>
 <br>
 <button onclick="askWords()">Ask me the words</button>
+<br>
 Correct words :
 <textarea rows="4" cols="50" id="correct">
 </textarea>
@@ -22,7 +23,12 @@ function askWords() {
   var listOfWords = document.getElementById("listOfWords");
   var allText = listOfWords.value.split("\n");
   listOfWords.value = "";
-  alert(allText);
+  for (var i in allText) {
+    alert(allText[i]);
+    var msg = new SpeechSynthesisUtterance(allText[i]);
+    window.speechSynthesis.speak(msg);
+    listOfWords.value = listOfWords.value + "\n" + allText[i]
+  }
 }
 </script>
 </html>
