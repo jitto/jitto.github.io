@@ -16,13 +16,10 @@ dust
 </textarea>
 <br>
 <button onclick="askWords()">Ask me these words</button>
-<br>
-Correct words :
-<textarea rows="4" cols="50" id="correct">
-</textarea>
-Wrong words :
-<textarea rows="4" cols="50" id="wrong">
-</textarea>
+<table>
+  <tr><th>Correct words</th><th>Wrong words</th></tr>
+  <tr><td id="correct"/><td id="wrong"/></tr>
+</table>
 </body>
 <script>
 window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello There"));
