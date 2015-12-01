@@ -86,13 +86,12 @@ function askWord(expectedValue) {
     window.speechSynthesis.speak(msg);
     response = window.prompt("Type in spelling or press OK to repeat");
   }
-  if (response == null) {
-    return null;
-  } else if (response === expectedValue) {
+  if (response === expectedValue) {
     correct.value += expectedValue + "\n";
-  } else {
+  } else if (response != null) {
     wrong.value += expectedValue + "\n";
   }
+  return response;
 }
 </script>
 </html>
