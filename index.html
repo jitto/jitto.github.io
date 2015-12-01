@@ -27,7 +27,7 @@ var wrong = document.getElementById("wrong");
 
 function askWords() {
   var allText = listOfWords.value.split("\n");
-  listOfWords.value = "";
+  listOfWords.style.backgroundColor = "black";
   correct.value = "";
   wrong.value = "";
   while (allText.length > 0) {
@@ -38,6 +38,7 @@ function askWords() {
       askWord(expectedValue);
     }
   }
+  listOfWords.style.backgroundColor = "white";
 }
 
 function askWord(expectedValue) {
@@ -52,7 +53,6 @@ function askWord(expectedValue) {
   } else {
     wrong.value += expectedValue + "\n";
   }
-  listOfWords.value += expectedValue + "\n";
 }
 </script>
 </html>
