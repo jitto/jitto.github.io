@@ -19,15 +19,30 @@ Wrong words :
 </textarea>
 </body>
 <script>
+var listOfWords = document.getElementById("listOfWords");
+var correct = document.getElementById("correct");
+var wrong = document.getElementById("wrong");
 function askWords() {
-  var listOfWords = document.getElementById("listOfWords");
   var allText = listOfWords.value.split("\n");
   listOfWords.value = "";
+  correct.value = "";
+  wrong.value = "";
   for (var i in allText) {
-    alert(allText[i]);
-    var msg = new SpeechSynthesisUtterance(allText[i]);
-    window.speechSynthesis.speak(msg);
-    listOfWords.value = listOfWords.value + "\n" + allText[i]
+    var expectedValue = allText[i];
+    if (expectedValue.length > 0) {
+      var msg = new SpeechSynthesisUtterance(expectedValue);
+      var response = null;
+      while (response == null) {
+        window.speechSynthesis.speak(msg);
+        response = window.prompt("Type in spelling");
+      }
+      if (response === expectedValue) {
+        correct.value += expectedValue + "\n";
+      } else {
+        wrong.value += expectedValue + "\n";
+      }
+      listOfWords.value += expectedValue + "\n" + 
+    }
   }
 }
 //var audio = new Audio();
