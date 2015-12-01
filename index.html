@@ -20,7 +20,7 @@ Wrong words :
 <script>
 function askWords() {
   var listOfWords = document.getElementById("listOfWords");
-  var allText = listOfWords.value();
+  var allText = listOfWords.value.split("\n");
   listOfWords.value = "";
   alert(allText);
 }
