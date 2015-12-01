@@ -9,7 +9,7 @@ text
 dust
 </textarea>
 <br>
-<button text="Ask me the words"/>
+<button onclick="askWords()">Ask me the words</button>
 Correct words :
 <textarea rows="4" cols="50" id="correct">
 </textarea>
@@ -18,9 +18,11 @@ Wrong words :
 </textarea>
 </body>
 <script>
+function askWords() {
   var listOfWords = document.getElementById("listOfWords");
   var allText = listOfWords.value();
   listOfWords.value = "";
   alert(allText);
+}
 </script>
 </html>
