@@ -27,7 +27,7 @@ var listOfWords = document.getElementById("listOfWords");
 var correct = document.getElementById("correct");
 var wrong = document.getElementById("wrong");
 function askWords() {
-  var speechEngine = document.querySelector('input[name=speechEngine]:checked').value);
+  var speechEngine = document.querySelector('input[name=speechEngine]:checked').value;
   var allText = listOfWords.value.split("\n");
   listOfWords.value = "";
   correct.value = "";
