@@ -4,43 +4,7 @@
 Enter list of words (one in each line) :
 <br>
 <textarea rows="30" cols="80" id="listOfWords">
-garrulous
-vicinity
-wharf
-winsome
-personnel
-melodramatic
-deciduous
-gauze
-boycott
-anorak
-genteel
-force majeure
-zealous
-basilica
-bossa nova
-corollary
-orwellian
-vainglorious
-chihuahua
-buoyancy
-yurt
-interlocutor
-conglomerate
-anemone
-echelon
-auriferous
-WYSIWYG
-freesia
-susurration
-leitmotif
-cozen
-jai alai
-eleemosynary
-ecclesiastical
-insouciance
-Iroquois
-cheongsam
+  enter words here - one in each line
 </textarea>
 <br>
 <button onclick="askWords()">Ask me these words</button>
@@ -54,13 +18,22 @@ cheongsam
 </div>
 </body>
 <script>
-window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello There"));
+var greeting = new SpeechSynthesisUtterance("Hello There. Enter the words and click Ask button")
+greeting.lang = 'en-US';
+greeting.rate = 0.8;
+window.speechSynthesis.speak(greeting);
 
 var listOfWords = document.getElementById("listOfWords");
 var correct = document.getElementById("correct");
 var wrong = document.getElementById("wrong");
 
+var initialList = localStorage.getItem('words');
+if (initialList != null) {
+  listofWords.value = initialList;
+}
+
 function askWords() {
+  localStorage.setItem('words', listOfWords.value);
   var allText = listOfWords.value.split("\n");
   listOfWords.style.backgroundColor = "black";
   correct.value = "";
