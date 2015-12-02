@@ -61,10 +61,12 @@ function askWord(expectedValue) {
     window.speechSynthesis.speak(msg);
     response = window.prompt("Type in spelling or press OK to repeat");
   }
-  if (response === expectedValue) {
-    correct.value += expectedValue + "\n";
-  } else if (response != null) {
-    wrong.value += expectedValue + "\n";
+  if (response != null) {
+    if (response.toLowerCase() === expectedValue.toLowerCase()) {
+      correct.value = expectedValue + "\n" + correct.value;
+    } else {
+      wrong.value = expectedValue + "\n" + wrong.value;
+    }
   }
   return response;
 }
