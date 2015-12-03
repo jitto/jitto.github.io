@@ -81,13 +81,13 @@ function askWord(expectedValue) {
 function updateFields(response, expectedValue) {
   if (response.toLowerCase() === expectedValue.toLowerCase()) {
     correct.value = expectedValue + "\n" + correct.value;
-    correctCountSpan.textContent = correctCountSpan.textContent++;
+    correctCountSpan.textContent++;
     wrong.style.backgroundColor = "white";
     correct.style.backgroundColor = "green";
   } else {
     wrong.value = expectedValue + "\n" + wrong.value;
     typed.value = response + "\n" + typed.value;
-    wrongCountSpan.textContent = wrongCountSpan.textContent++;
+    wrongCountSpan.textContent++;
     wrong.style.backgroundColor = "red";
     correct.style.backgroundColor = "white";
   }
