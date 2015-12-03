@@ -45,9 +45,9 @@ function askWords() {
   localStorage.setItem('words', listOfWords.value);
   var allText = listOfWords.value.split("\n");
   listOfWords.style.backgroundColor = "black";
-  correctCountSpan.value = 0;
-  wrongCountSpan.value = 0;
-  totalCountSpan.value = allText.length;
+  correctCountSpan.textContent = 0;
+  wrongCountSpan.textContent = 0;
+  totalCountSpan.textContent = allText.length;
   correct.value = "";
   wrong.value = "";
   typed.value = "";
@@ -81,13 +81,13 @@ function askWord(expectedValue) {
 function updateFields(response, expectedValue) {
   if (response.toLowerCase() === expectedValue.toLowerCase()) {
     correct.value = expectedValue + "\n" + correct.value;
-    correctCountSpan.value = correctCountSpan.value++;
+    correctCountSpan.textContent = correctCountSpan.textContent++;
     wrong.style.backgroundColor = "white";
     correct.style.backgroundColor = "green";
   } else {
     wrong.value = expectedValue + "\n" + wrong.value;
     typed.value = response + "\n" + typed.value;
-    wrongCountSpan.value = wrongCountSpan.value++;
+    wrongCountSpan.textContent = wrongCountSpan.textContent++;
     wrong.style.backgroundColor = "red";
     correct.style.backgroundColor = "white";
   }
