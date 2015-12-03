@@ -9,7 +9,11 @@ Enter list of words (one in each line) :
 <br>
 <button onclick="askWords()">Ask me these words</button>
 <table>
-  <tr><th>Correct words</th><th>Wrong words</th><th>Typed words</th></tr>
+  <tr>
+    <th>Correct words <span id="correctCount"/></th>
+    <th>Wrong words <span id="wrongCount"/></th>
+    <th>Typed words <span id="totalCount"/></th>
+  </tr>
   <tr>
     <td><textarea rows="14" cols="24" id="correct"></textarea></td>
     <td><textarea rows="14" cols="24" id="wrong"></textarea></td>
@@ -28,6 +32,9 @@ var listOfWords = document.getElementById("listOfWords");
 var correct = document.getElementById("correct");
 var wrong = document.getElementById("wrong");
 var typed = document.getElementById("typed");
+var correctCountSpan = document.getElementById("correctCount");
+var wrongCountSpan = document.getElementById("wrongCount");
+var totalCountSpan = document.getElementById("totalCount");
 
 var initialList = localStorage.getItem('words');
 if (initialList != null) {
@@ -38,8 +45,12 @@ function askWords() {
   localStorage.setItem('words', listOfWords.value);
   var allText = listOfWords.value.split("\n");
   listOfWords.style.backgroundColor = "black";
+  correctCountSpan.value = 0;
+  wrongCountSpan.value = 0;
+  totalCountSpan.value = allText.length;
   correct.value = "";
   wrong.value = "";
+  typed.value = "";
   while (allText.length > 0) {
     var index = Math.floor((Math.random() * allText.length));
     var expectedValue = allText[index];
@@ -49,6 +60,7 @@ function askWords() {
       if (answer == null) {
         break;
       }
+      updateFields(answer, expectedValue);
     }
   }
   listOfWords.style.backgroundColor = "white";
@@ -63,19 +75,22 @@ function askWord(expectedValue) {
     window.speechSynthesis.speak(msg);
     response = window.prompt("Type in spelling or press OK to repeat");
   }
-  if (response != null) {
-    if (response.toLowerCase() === expectedValue.toLowerCase()) {
-      correct.value = expectedValue + "\n" + correct.value;
-      wrong.style.backgroundColor = "white";
-      correct.style.backgroundColor = "green";
-    } else {
-      wrong.value = expectedValue + "\n" + wrong.value;
-      typed.value = response + "\n" + typed.value;
-      wrong.style.backgroundColor = "red";
-      correct.style.backgroundColor = "white";
-    }
-  }
   return response;
+}
+
+function updateFields(response, expectedValue) {
+  if (response.toLowerCase() === expectedValue.toLowerCase()) {
+    correct.value = expectedValue + "\n" + correct.value;
+    correctCountSpan.value = correctCountSpan.value++;
+    wrong.style.backgroundColor = "white";
+    correct.style.backgroundColor = "green";
+  } else {
+    wrong.value = expectedValue + "\n" + wrong.value;
+    typed.value = response + "\n" + typed.value;
+    wrongCountSpan.value = wrongCountSpan.value++;
+    wrong.style.backgroundColor = "red";
+    correct.style.backgroundColor = "white";
+  }
 }
 </script>
 </html>
