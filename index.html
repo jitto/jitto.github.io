@@ -11,8 +11,9 @@ Enter list of words (one in each line) :
 <table>
   <tr><th>Correct words</th><th>Wrong words</th></tr>
   <tr>
-    <td><textarea rows="4" cols="38" id="correct"></textarea></td>
-    <td><textarea rows="4" cols="38" id="wrong"></textarea></td>
+    <td><textarea rows="14" cols="25" id="correct"></textarea></td>
+    <td><textarea rows="14" cols="25" id="wrong"></textarea></td>
+    <td><textarea rows="14" cols="25" id="typed"></textarea></td>
   </tr>
 </table>
 </div>
@@ -26,6 +27,7 @@ window.speechSynthesis.speak(greeting);
 var listOfWords = document.getElementById("listOfWords");
 var correct = document.getElementById("correct");
 var wrong = document.getElementById("wrong");
+var typed = document.getElementById("typed");
 
 var initialList = localStorage.getItem('words');
 if (initialList != null) {
@@ -68,6 +70,7 @@ function askWord(expectedValue) {
       correct.style.backgroundColor = "green";
     } else {
       wrong.value = expectedValue + "\n" + wrong.value;
+      typed.value = response + "\n" + typed.value;
       wrong.style.backgroundColor = "red";
       correct.style.backgroundColor = "white";
     }
