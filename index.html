@@ -43,14 +43,21 @@ if (initialList != null) {
 
 function askWords() {
   localStorage.setItem('words', listOfWords.value);
-  var allText = listOfWords.value.split("\n");
   listOfWords.style.backgroundColor = "black";
+  wrong.style.backgroundColor = "white";
+  correct.style.backgroundColor = "white";
   correctCountSpan.textContent = 0;
   wrongCountSpan.textContent = 0;
-  totalCountSpan.textContent = allText.length;
+  totalCountSpan.textContent = 0;
   correct.value = "";
   wrong.value = "";
   typed.value = "";
+  setTimeout(askWordsAfterTimeout, 50);
+}
+
+function askWordsAfterTimeout() {
+  var allText = listOfWords.value.split("\n");
+  totalCountSpan.textContent = allText.length;
   while (allText.length > 0) {
     var index = Math.floor((Math.random() * allText.length));
     var expectedValue = allText[index];
