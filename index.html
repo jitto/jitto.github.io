@@ -36,6 +36,7 @@ var correctCountSpan = document.getElementById("correctCount");
 var wrongCountSpan = document.getElementById("wrongCount");
 var totalCountSpan = document.getElementById("totalCount");
 
+var allText = [];
 var initialList = localStorage.getItem('words');
 if (initialList != null) {
   listOfWords.value = initialList;
@@ -52,25 +53,30 @@ function askWords() {
   correct.value = "";
   wrong.value = "";
   typed.value = "";
+
+  allText = listOfWords.value.split("\n");
   setTimeout(askWordsAfterTimeout, 50);
 }
 
 function askWordsAfterTimeout() {
-  var allText = listOfWords.value.split("\n");
-  totalCountSpan.textContent = allText.length;
-  while (allText.length > 0) {
-    var index = Math.floor((Math.random() * allText.length));
-    var expectedValue = allText[index];
-    allText.splice(index, 1);
-    if (expectedValue.length > 0) {
-      var answer = askWord(expectedValue);
-      if (answer == null) {
-        break;
-      }
+  var index = Math.floor((Math.random() * allText.length));
+  var expectedValue = allText[index];
+  allText.splice(index, 1);
+  if (expectedValue.length > 0) {
+    var answer = askWord(expectedValue);
+    if (answer != null) {
       updateFields(answer, expectedValue);
+    } else {
+      listOfWords.style.backgroundColor = "white";
+      return;
     }
   }
-  listOfWords.style.backgroundColor = "white";
+
+  if (allText.length > 0) {
+    setTimeout(askWordsAfterTimeout, 50);
+  } else {
+    listOfWords.style.backgroundColor = "white";
+  }
 }
 
 function askWord(expectedValue) {
@@ -100,6 +106,7 @@ function updateFields(response, expectedValue) {
     wrong.style.backgroundColor = "red";
     correct.style.backgroundColor = "white";
   }
+  totalCountSpan.textContent++;
 }
 </script>
 </html>
