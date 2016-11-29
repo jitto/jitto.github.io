@@ -79,6 +79,8 @@ function askWord(expectedValue) {
   msg.rate = 0.8;
   var response = "";
   while (response === "") {
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.resume();
     window.speechSynthesis.speak(msg);
     response = window.prompt("Type in spelling or press OK to repeat");
   }
