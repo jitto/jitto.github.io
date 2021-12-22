@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Demo: Fixed Blockly</title>
+    <script>
+        var Code = {};
+        var process = {
+            env: new Map(),
+            argv: ["test"]
+        }
+    </script>
+
+    <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/@blockly/closure/goog/base.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/js/boards.json"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/js/boards.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/generators/arduino_generator.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/procedures.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/text.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/math.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/loops.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/logic.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/colour.js"></script>
+    <script src="https://blocklyduino.github.io/BlocklyDuino-v2/blocklyduino/arduino/blockly/lists.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@5.20210325.1/msg/en.js"></script>
+    <!-- <script src="https://unpkg.com/arduino-create-agent-js-client@2.6.0/dist/create-plugin.js"></script> -->
+    <!-- <script src="https://unpkg.com/browse/blockly/msg/en.js"></script> -->
+    <script>
+        function renderPreview() {
+            var generatedCode = Blockly.Arduino.workspaceToCode(Code.workspace);
+            document.getElementById('code').value = generatedCode;
+        }
+        function compile() {
+            var generatedCode = Blockly.Arduino.workspaceToCode(Code.workspace);
+            document.getElementById('code').value = generatedCode;
+
+
+            var compile_url = "http://localhost:8090/compile";
+            fetch(compile_url, {
+                method: 'POST',
+                body: generatedCode
+            })
+        }
+    </script>
+</head>
+<body>
+    <button onclick="compile()">Compile</button>
+    <button onclick="upload()">Upload</button>
+
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <textarea id="code" style="height: 480px; width: 600px;"></textarea>
+
+    <xml id="toolbox" style="display: none">
+        <block type="controls_if"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="logic_compare"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="text_print"></block>
+        <block type="procedures_defnoreturn"></block>
+    </xml>
+
+    <script>
+        Code.workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox')});
+        Code.workspace.addChangeListener(renderPreview);
+    </script>
+</body>
+</html>
